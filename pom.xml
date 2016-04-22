@@ -36,6 +36,13 @@
         <groupId>com.github.phoswald</groupId>
         <artifactId>rspt-maven-plugin</artifactId>
         <version>0.0.1-SNAPSHOT</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
