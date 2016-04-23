@@ -1,14 +1,12 @@
 package phoswald.sample.rspt.calculator;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
 import phoswald.sample.rspt.calculator.parser.CalculatorParser;
-import phoswald.sample.rspt.calculator.parser.CalculatorParser.Ref;
-import phoswald.sample.rspt.calculator.parser.CalculatorParser.Ref_int;
 
 public class CalculatorParserTest {
 
@@ -53,21 +51,21 @@ public class CalculatorParserTest {
         assertError(7, "1+1+1+1+(1+)+3");
     }
 
-    private void assertResult(double expectedResult, String expression) {
-        assertResult(Double.toString(expectedResult), expression);
+    private void assertResult(double expectedResult, String input) {
+        assertResult(Double.toString(expectedResult), input);
     }
 
-    private void assertResult(String expectedResult, String expression) {
-        Ref<String> actualResult = new Ref<>(null);
-        Ref_int pos = new Ref_int(0);
-        assertTrue(testee.Parse_ROOT(expression, actualResult, pos));
-        assertEquals(expectedResult, actualResult.val);
+    private void assertResult(String expectedResult, String input) {
+        assertEquals(expectedResult, testee.Parse_ROOT(input));
     }
 
-    private void assertError(int expectedOffset, String expression) {
-        Ref<String> actualResult = new Ref<>(null);
-        Ref_int pos = new Ref_int(0);
-        assertFalse(testee.Parse_ROOT(expression, actualResult, pos));
-        assertEquals(expectedOffset, pos.val);
+    private void assertError(int expectedOffset, String input) {
+        try {
+            testee.Parse_ROOT(input);
+            fail();
+        } catch(CalculatorParser.ParserException e) {
+            assertEquals(expectedOffset, e.getPosition());
+            assertSame(input, e.getInput());
+        }
     }
 }

@@ -6,13 +6,12 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 
 import phoswald.sample.rspt.calculator.parser.CalculatorParser;
-import phoswald.sample.rspt.calculator.parser.CalculatorParser.Ref;
-import phoswald.sample.rspt.calculator.parser.CalculatorParser.Ref_int;
 
 public class CalculatorMain {
 
 	public static void main(String[] args) throws IOException {
-		System.out.println("sample-rspt-calculator -- A simple calculator using RSPT (the Really Simple Parser Tool)");
+		System.out.println("sample-rspt-calculator - A simple calculator using RSPT (the Really Simple Parser Tool)");
+        System.out.println("See: https://github.com/phoswald/sample-rspt-calculator - (C) 2016 Philip Oswald");
 		System.out.println("[Enter expressions to calculate or an empty line to quit]");
 		runLoop(new BufferedReader(new InputStreamReader(System.in)), System.out);
 	}
@@ -24,14 +23,12 @@ public class CalculatorMain {
             if(line == null || line.isEmpty()) {
                 break;
             }
-            Ref<String> result = new Ref<String>(null);
-            Ref_int error = new Ref_int(0);
-            if(!parser.Parse_ROOT(line, result, error)) {
+            try {
+                output.println("Result: " + parser.Parse_ROOT(line));
+            } catch(CalculatorParser.ParserException e) {
                 output.println("Syntax Error:");
-                output.println("- input:   '" + line + "'");
-                output.println("- position: " + pad(' ', error.val) + "^");
-            } else {
-                output.println("Result: " + result.val);
+                output.println("- input:   '" + e.getInput() + "'");
+                output.println("- position: " + pad(' ', e.getPosition()) + "^");
             }
         }
 	}
