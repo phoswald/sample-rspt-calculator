@@ -8,7 +8,7 @@
 <namespace:phoswald.sample.rspt.calculator.parser>
 <class:CalculatorParser>
 
-{private static final Map<String,Double> _variables = new HashMap<String,Double>();}
+{private final Map<String,Double> variables = new HashMap<String,Double>();}
 
 ### Root Symbols ###
 # The root symbols are those symbols that are externally visible.
@@ -26,7 +26,7 @@
 # Therefore, it associates from right to left (which is conistent to C/C++).
 
 EXPRESSION_SET : Double =
-    IDENT '=' EXPRESSION_SET {output.val = output3.val; _variables.put(output1.val, output.val)} |
+    IDENT '=' EXPRESSION_SET {output.val = output3.val; variables.put(output1.val, output.val)} |
     EXPRESSION_ADD           {output.val = output1.val} ;
 
 ### Additive Operators ###
@@ -66,7 +66,7 @@ VALUE : Double = SYMBOL {output.val = output1.val} |
 
 SYMBOL : Double = 'pi'  {output.val = Math.PI} |
                   'e'   {output.val = Math.E}  |
-                  IDENT {output.val = _variables.containsKey(output1.val) ? _variables.get(output1.val) : 0.0} ;
+                  IDENT {output.val = variables.containsKey(output1.val) ? variables.get(output1.val) : 0.0} ;
                   
 IDENT : String = IDENTCHAR_1 IDENTCHARS_N {output.val = new String(_input, pos0.val, pos2.val-pos0.val)} ;
 IDENTCHARS_N = IDENTCHAR_N IDENTCHARS_N | ;
