@@ -17,14 +17,26 @@ public class CalculatorParserTest {
     @Test
     public void testPredefinedSymbols() {
         assertResult(Math.PI, "pi");
+        assertResult(Math.E, "e");
         assertResult(0.0, "x");
         assertResult("Copyright (C) 2013 Philip Oswald", "About");
         assertResult("Version 1.11 for Java", "Version");
     }
 
     @Test
+    public void testNumbers() {
+        assertResult("42.0", "42");
+        assertResult("-42.0", "0-42");
+    }
+
+    @Test
     public void testSimpleMath() {
         assertResult("3.0", "1+2");
+        assertResult("2.0", "1*2");
+        assertResult("3.0", "10-3-4");
+        assertResult("11.0", "10-(3-4)");
+        assertResult("42.1", "42+(1/10)");
+        assertResult("42.1", "42+1/10");
     }
 
     @Test
@@ -38,6 +50,7 @@ public class CalculatorParserTest {
     @Test
     public void testSyntaxErrors() {
         assertError(1, "1+");
+        assertError(7, "1+1+1+1+(1+)+3");
     }
 
     private void assertResult(double expectedResult, String expression) {
