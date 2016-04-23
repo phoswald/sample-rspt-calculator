@@ -56,12 +56,12 @@ public class CalculatorParserTest {
     }
 
     private void assertResult(String expectedResult, String input) {
-        assertEquals(expectedResult, testee.Parse_ROOT(input));
+        assertEquals(expectedResult, testee.parseROOT(input));
     }
 
     private void assertError(int expectedOffset, String input) {
         try {
-            testee.Parse_ROOT(input);
+            testee.parseROOT(input);
             fail();
         } catch(CalculatorParser.ParserException e) {
             assertEquals(expectedOffset, e.getPosition());

@@ -68,12 +68,12 @@ SYMBOL : Double = 'pi'  {output.val = Math.PI} |
                   'e'   {output.val = Math.E}  |
                   IDENT {output.val = variables.containsKey(output1.val) ? variables.get(output1.val) : 0.0} ;
                   
-IDENT : String = IDENTCHAR_1 IDENTCHARS_N {output.val = new String(_input, pos0.val, pos2.val-pos0.val)} ;
+IDENT : String = IDENTCHAR_1 IDENTCHARS_N {output.val = new String(input, pos0.val, pos2.val-pos0.val)} ;
 IDENTCHARS_N = IDENTCHAR_N IDENTCHARS_N | ;
 IDENTCHAR_1  = <range> 'az' | <range> 'AZ' | '_' ;
 IDENTCHAR_N  = <range> 'az' | <range> 'AZ' | '_' | <range> '09' ;
 
-CONST  : String = DIGIT DIGITS {output.val = new String(_input, pos0.val, pos2.val-pos0.val)} ;
+CONST  : String = DIGIT DIGITS {output.val = new String(input, pos0.val, pos2.val-pos0.val)} ;
 DIGITS : Object = DIGIT DIGITS | ;
         
 DIGIT = <range> '09' ;

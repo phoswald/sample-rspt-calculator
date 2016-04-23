@@ -24,7 +24,7 @@ public class CalculatorMain {
                 break;
             }
             try {
-                output.println("Result: " + parser.Parse_ROOT(line));
+                output.println("Result: " + parser.parseROOT(line));
             } catch(CalculatorParser.ParserException e) {
                 output.println("Syntax Error:");
                 output.println("- input:   '" + e.getInput() + "'");
