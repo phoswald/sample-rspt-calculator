@@ -3,34 +3,34 @@ package phoswald.sample.rspt.calculator;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.mockito.Mockito.when;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintStream;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class CalculatorMainTest {
+class CalculatorMainTest {
 
-    private BufferedReader input = mock(BufferedReader.class);
-    private PrintStream output = mock(PrintStream.class);
+    private final BufferedReader input = mock(BufferedReader.class);
+    private final PrintStream output = mock(PrintStream.class);
 
     @Test
-    public void testRunLoopNoInput() throws IOException {
+    void testRunLoopNoInput() throws IOException {
         // Act
         CalculatorMain.runLoop(input, output);
 
         // Assert
         verify(input).readLine();
         verifyNoMoreInteractions(input);
-        verifyZeroInteractions(output);
+        verifyNoInteractions(output);
     }
 
     @Test
-    public void testRunLoopValidInput() throws IOException {
+    void testRunLoopValidInput() throws IOException {
         // Arrange
         when(input.readLine()).thenReturn("1+2", "x=4+5", "x*x", "");
 
@@ -47,7 +47,7 @@ public class CalculatorMainTest {
     }
 
     @Test
-    public void testRunLoopInvalidInput() throws IOException {
+    void testRunLoopInvalidInput() throws IOException {
         // Arrange
         when(input.readLine()).thenReturn("1+2++3+4", "");
 

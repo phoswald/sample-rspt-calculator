@@ -1,19 +1,19 @@
 package phoswald.sample.rspt.calculator;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.fail;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import phoswald.sample.rspt.calculator.parser.CalculatorParser;
 
-public class CalculatorParserTest {
+class CalculatorParserTest {
 
-    private CalculatorParser testee = new CalculatorParser();
+    private final CalculatorParser testee = new CalculatorParser();
 
     @Test
-    public void testPredefinedSymbols() {
+    void testPredefinedSymbols() {
         assertResult(Math.PI, "pi");
         assertResult(Math.E, "e");
         assertResult(0.0, "x");
@@ -22,13 +22,13 @@ public class CalculatorParserTest {
     }
 
     @Test
-    public void testNumbers() {
+    void testNumbers() {
         assertResult("42.0", "42");
         assertResult("-42.0", "0-42");
     }
 
     @Test
-    public void testSimpleMath() {
+    void testSimpleMath() {
         assertResult("3.0", "1+2");
         assertResult("2.0", "1*2");
         assertResult("3.0", "10-3-4");
@@ -38,7 +38,7 @@ public class CalculatorParserTest {
     }
 
     @Test
-    public void testStatefulVariables() {
+    void testStatefulVariables() {
         assertResult("3.0", "x=1+2");
         assertResult("6.0", "y=x+x");
         assertResult("36.0", "y=y*y");
@@ -46,7 +46,7 @@ public class CalculatorParserTest {
     }
 
     @Test
-    public void testSyntaxErrors() {
+    void testSyntaxErrors() {
         assertError(1, "1+");
         assertError(7, "1+1+1+1+(1+)+3");
     }
